@@ -92,7 +92,7 @@ let g:phpDocBlockIncludedPostfix = '**#@+'
 " .. search this # of empty lines for PhpDoc comments
 let g:searchPhpDocLineCount = 1
 " .. search this # of empty lines that 'trail' the foldmatch
-let g:searchEmptyLinesPostfixing = 1
+let g:searchEmptyLinesPostfixing = 0
 " }}}
 " {{{ Script constants
 let s:synIDattr_exists = exists('*synIDattr')
@@ -176,7 +176,7 @@ function! s:PHPCustomFolds() " {{{
 	"       'g:searchEmptyLinesPostfixing'..
 
 	" Fold function with PhpDoc (function foo() {})
-	call s:PHPFoldPureBlock('function', s:FOLD_WITH_PHPDOC)
+	call s:PHPFoldPureBlock('function', s:FOLD_WITHOUT_PHPDOC)
 
 	" Fold class properties with PhpDoc (var $foo = NULL;)
 	call s:PHPFoldProperties('^\s*\(\(private\)\|\(public\)\|\(protected\)\|\(var\)\)\s\(static\s\)*\$', ";", s:FOLD_WITH_PHPDOC, 1, 1)
@@ -621,7 +621,8 @@ function! PHPFoldText() " {{{
 	endif
 
 	" Return the foldtext
-	return "+--".lines." lines: " . lineString
+	"return "+--".lines." lines: " . lineString
+	return "+-- " . lineString
 endfunction
 " }}}
 function! SkipMatch() " {{{
